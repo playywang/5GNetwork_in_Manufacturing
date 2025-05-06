@@ -12,27 +12,24 @@ To use this repository you need to have access into a running kubernetes cluster
 
 ## Deploy OAI 5G Core 
 
-1. Deploy 
-
-```bash
-cd oai-5g-core-basic
-helm dependency update
-helm install oai-5g-basic .
-```
+1. Deploy Core Network 
+  ```bash
+  cd helm-charts/oai-5g-core-basic
+  helm dependency update
+  helm install oai-5g-basic .
+  ```
 
 ## Deploy OAI RAN: Sepparate CU & DU (F1 Mode)
 
 1. Deploy CU
-
-```bash
-cd oai-5g-ran/oai-du
-helm install oai-du .
-```
+  ```bash
+  cd helm-charts/oai-5g-ran/oai-du
+  helm install oai-du .
+  ```
 
 2. Deploy DU
-
-```bash
-cd oai-5g-ran/oai-du
-helm install oai-du .
-```
+  ```bash
+  cd helm-charts/oai-5g-ran/oai-du
+  helm install oai-du .
+  ```
 
