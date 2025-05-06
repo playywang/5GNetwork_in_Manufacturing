@@ -6,11 +6,11 @@ Source Data: [5G Network Slicing in Quality Control Process of Manufacturing](re
 
 Simulate QOS Control process data transmission over 5G on kubernetes platform
 
-## How To 
+## How To Setup The Testing Environment
 
 To use this repository you need to have access into a running kubernetes cluster and proceed with the following steps
 
-## Deploy OAI 5G Core 
+### Deploy OAI 5G Core 
 
 1. Deploy Core Network 
   ```bash
@@ -19,7 +19,7 @@ To use this repository you need to have access into a running kubernetes cluster
   helm install oai-5g-basic .
   ```
 
-## Deploy OAI RAN: Sepparate CU & DU (F1 Mode)
+### Deploy OAI RAN: Sepparate CU & DU (F1 Mode)
 
 1. Deploy CU
   ```bash
