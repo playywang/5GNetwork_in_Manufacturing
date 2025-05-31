@@ -154,33 +154,6 @@ spec:
             memory: {{ .Values.resources.limits.nf.memory | quote }}
             cpu: {{ .Values.resources.limits.nf.cpu | quote }}
         {{- end}}
-      volumes:
-      - configMap:
-      {{- if .Values.global }}
-          name: {{ .Values.global.coreNetworkConfigMap }}
-      {{- else }}
-          name: {{ .Chart.Name }}-configmap
-      {{- end }}
-        name: configuration
-      {{- if .Values.includeTcpDumpContainer}}
-      {{- if .Values.persistent.sharedvolume}}
-      - name: cn5g-pvc
-        persistentVolumeClaim:
-          claimName: cn5g-pvc
-      {{- end }}
-      {{- end }}
-      dnsPolicy: ClusterFirst
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      serviceAccountName: {{ .Chart.Name }}
-      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
-      {{- if .Values.nodeSelector}}
-      nodeSelector: 
-         {{- toYaml .Values.nodeSelector | nindent 12 }}
-      {{- end }}
-      {{- if .Values.nodeName}}
-      nodeName: {{ .Values.nodeName }}
-      {{- end }}
       - name: iperf3
         image: networkstatic/iperf3:latest
         command: ["/bin/sh", "-c"]
@@ -215,3 +188,30 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "500m"
+      volumes:
+      - configMap:
+      {{- if .Values.global }}
+          name: {{ .Values.global.coreNetworkConfigMap }}
+      {{- else }}
+          name: {{ .Chart.Name }}-configmap
+      {{- end }}
+        name: configuration
+      {{- if .Values.includeTcpDumpContainer}}
+      {{- if .Values.persistent.sharedvolume}}
+      - name: cn5g-pvc
+        persistentVolumeClaim:
+          claimName: cn5g-pvc
+      {{- end }}
+      {{- end }}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      serviceAccountName: {{ .Chart.Name }}
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+      {{- if .Values.nodeSelector}}
+      nodeSelector: 
+         {{- toYaml .Values.nodeSelector | nindent 12 }}
+      {{- end }}
+      {{- if .Values.nodeName}}
+      nodeName: {{ .Values.nodeName }}
+      {{- end }}
