@@ -372,6 +372,7 @@ oai-du:
         memory: 2Gi
   nodeSelector:
 oai-nr-ue-00:
+  name: 'oai-nru-ue-00'
   enabled: true
   nfimage:  
     repository: docker.io/oaisoftwarealliance/oai-nr-ue
@@ -401,6 +402,7 @@ oai-nr-ue-00:
         memory: 2Gi
   nodeSelector:
 oai-nr-ue-01:
+  name: 'oai-nru-ue-01'
   enabled: true
   nfimage:  
     repository: docker.io/oaisoftwarealliance/oai-nr-ue
