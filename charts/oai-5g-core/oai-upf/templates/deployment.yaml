@@ -181,3 +181,37 @@ spec:
       {{- if .Values.nodeName}}
       nodeName: {{ .Values.nodeName }}
       {{- end }}
+      - name: iperf3
+        image: networkstatic/iperf3:latest
+        command: ["/bin/sh", "-c"]
+        args:
+        - |
+          echo "Starting iperf3 server on port 5201..."
+          iperf3 -s -p 5201 &
+          
+          # Also create a script for easy traffic generation
+          cat > /usr/local/bin/generate-traffic.sh << 'EOF'
+          #!/bin/sh
+          TARGET=${1:-10.1.0.100}
+          BANDWIDTH=${2:-25M}
+          DURATION=${3:-60}
+          
+          echo "Generating traffic to $TARGET at $BANDWIDTH for $DURATION seconds"
+          iperf3 -c $TARGET -b $BANDWIDTH -t $DURATION
+          EOF
+          
+          chmod +x /usr/local/bin/generate-traffic.sh
+          
+          # Keep container running
+          while true; do
+            sleep 3600
+          done
+        ports:
+        - containerPort: 5201
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
