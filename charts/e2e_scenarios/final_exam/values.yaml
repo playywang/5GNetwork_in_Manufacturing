@@ -371,25 +371,37 @@ oai-du:
         cpu: 3000m
         memory: 2Gi
   nodeSelector:
-oai-nr-ue-00:
-  name: 'oai-nru-ue-00'
+
+# Replace the single oai-nr-ue with this dynamic configuration
+oai-nr-ues:
   enabled: true
-  nfimage:  
+  count: 5  # Number of UEs to create
+  
+  # IMSI generation pattern
+  imsiConfig:
+    base: "00101000000"   # Base IMSI pattern (11 digits)
+    startIndex: 100       # Starting number (results in 001010000000100)
+    
+  # Naming pattern
+  namePattern: "oai-nru-ue"  # Will generate: oai-nru-ue-00, oai-nru-ue-01, etc.
+  
+  # Common configuration (from your current oai-nr-ue)
+  nfimage:
     repository: docker.io/oaisoftwarealliance/oai-nr-ue
     version: 2024.w32
-    # pullPolicy: IfNotPresent or Never or Always
     pullPolicy: IfNotPresent
+  
   config:
     timeZone: "Europe/Paris"
-    rfSimServer: "oai-ran"    # ip-address of rfsim or service name oai-gnb or oai-du
-    fullImsi: "001010000000100"       # make sure all the below entries are present in the subscriber database
+    rfSimServer: "oai-ran"
     fullKey: "fec86ba6eb707ed08905757b1bb44b8f"
     opc: "C42449363BBAD02B66D16BC975D77CC1"
     dnn: "oai"
-    sst: "1"                     # configure according to gnb and amf, smf and upf
+    sst: "1"
     sd: "16777215"
-    usrp: "rfsim"            # allowed rfsim, b2xx, n3xx, x3xx
+    usrp: "rfsim"
     useAdditionalOptions: "--sa --rfsim -r 106 --numerology 1 -C 3619200000 --log_config.global_log_options level,nocolor,time"
+  
   resources:
     define: false
     limits:
@@ -400,34 +412,5 @@ oai-nr-ue-00:
       nf:
         cpu: 2000m
         memory: 2Gi
-  nodeSelector:
-oai-nr-ue-01:
-  name: 'oai-nru-ue-01'
-  enabled: true
-  nfimage:  
-    repository: docker.io/oaisoftwarealliance/oai-nr-ue
-    version: 2024.w32
-    # pullPolicy: IfNotPresent or Never or Always
-    pullPolicy: IfNotPresent
-  config:
-    timeZone: "Europe/Paris"
-    rfSimServer: "oai-ran"    # ip-address of rfsim or service name oai-gnb or oai-du
-    fullImsi: "001010000000101"       # make sure all the below entries are present in the subscriber database
-    fullKey: "fec86ba6eb707ed08905757b1bb44b8f"
-    opc: "C42449363BBAD02B66D16BC975D77CC1"
-    dnn: "oai"
-    sst: "1"                     # configure according to gnb and amf, smf and upf
-    sd: "16777215"
-    usrp: "rfsim"            # allowed rfsim, b2xx, n3xx, x3xx
-    useAdditionalOptions: "--sa --rfsim -r 106 --numerology 1 -C 3619200000 --log_config.global_log_options level,nocolor,time"
-  resources:
-    define: false
-    limits:
-      nf:
-        cpu: 2000m
-        memory: 2Gi
-    requests:
-      nf:
-        cpu: 2000m
-        memory: 2Gi
-  nodeSelector:
+  
+  nodeSelector: {}
