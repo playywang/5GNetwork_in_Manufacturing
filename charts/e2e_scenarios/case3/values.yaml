@@ -428,6 +428,8 @@ oai-du:
   nodeSelector:
 oai-nr-ue:
   enabled: true
+  start:
+    nrue: true
   nfimage:  
     repository: docker.io/oaisoftwarealliance/oai-nr-ue
     version: 2024.w32
