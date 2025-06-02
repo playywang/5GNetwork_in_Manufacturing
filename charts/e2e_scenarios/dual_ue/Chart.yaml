@@ -66,9 +66,13 @@ dependencies:
   name: oai-du
   repository: "file://../../oai-5g-ran/oai-du"
   version: 2.1.0
-- condition: oai-nr-ue.enabled
-  name: oai-nr-ue
-  repository: "file://../../oai-5g-ran/oai-nr-ue"
+- condition: oai-nr-ue-00.enabled
+  name: oai-nr-ue-00
+  repository: "file://../../oai-5g-ran/oai-nr-ue-00"
+  version: 2.1.0
+- condition: oai-nr-ue-01.enabled
+  name: oai-nr-ue-01
+  repository: "file://../../oai-5g-ran/oai-nr-ue-01"
   version: 2.1.0
 - condition: oai-traffic-server.enabled
   name: oai-traffic-server
