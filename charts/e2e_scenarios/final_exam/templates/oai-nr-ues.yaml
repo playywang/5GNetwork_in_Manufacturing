@@ -1,8 +1,3 @@
-{{/*
-Template file: templates/oai-nr-ues.yaml
-This template replaces your individual UE templates with a dynamic generator
-*/}}
-
 {{- if .Values.oai-nr-ues.enabled }}
 {{- range $index := until (.Values.oai-nr-ues.count | int) }}
 ---
